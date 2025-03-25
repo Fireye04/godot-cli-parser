@@ -8,14 +8,14 @@ This is especially helpful for allowing users to run up their own dedicated game
 
 Add the [godot-cli-parser folder](https://github.com/Fireye04/godot-cli-parser/tree/67cc7c308dcb155ef5ce0df0aa69b3093e6efc30/addons) to your addons/ folder in godot. 
 This gives you access to a global class called `parser`. 
-You should next create a new scene and attatch a file to the root node.
+You should next create a new scene called `entrypoint.tscn` and attatch a script to the root node.
 This script should be similar to [entrypoint.gd](https://github.com/Fireye04/godot-cli-parser/blob/main/entrypoint.gd), containing the following boilerplate:
 ```
 extends Node
 
 class commands:
 	extends Node
-  # Add commands here!
+	# Add commands here!
 
 func _ready() -> void:
 	var c = commands.new()
@@ -26,5 +26,7 @@ func _ready() -> void:
 		queue_free()
 		get_tree().quit()
 ```
+Next, add any relevant commands under the commands class.
+
 Now, via godot's included [CLI](https://docs.godotengine.org/en/stable/tutorials/editor/command_line_tutorial.html), 
 you can go ahead and run `godot entrypoint.tscn --headless -- command arg1 arg2`, and the command and arguments will be passed through.
