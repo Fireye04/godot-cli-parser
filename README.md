@@ -7,9 +7,9 @@ This is especially helpful for allowing users to run up their own dedicated game
 ## How to use it
 
 Add the [godot-cli-parser folder](https://github.com/Fireye04/godot-cli-parser/tree/67cc7c308dcb155ef5ce0df0aa69b3093e6efc30/addons) to your addons/ folder in godot. 
-You should next create a new scene called `entrypoint.tscn` and attatch a script to the root node.
+You should next create a new scene called `entrypoint.tscn` and attach a script to the root node.
 This script should be similar to [entrypoint.gd](https://github.com/Fireye04/godot-cli-parser/blob/main/entrypoint.gd), containing the following boilerplate:
-```
+``` gdscript
 extends Node
 
 class commands:
@@ -18,11 +18,10 @@ class commands:
 
 func _ready() -> void:
 	var c = commands.new()
-	var result: Error = parser.run(c)
+	var result: Dictionary = parser.run(c)
 	c.queue_free()
-	if result:
-		print(error_string(result))
-		queue_free()
+	if result.error:
+		print(error_string(result.error) + ": " + result.message)
 		get_tree().quit()
 ```
 Next, add any relevant commands under the commands class.
