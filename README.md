@@ -20,6 +20,7 @@ func _ready() -> void:
 	var c = commands.new()
 	var result: Dictionary = parser.run(c)
 	c.queue_free()
+	# Handle any returned errors. (will pass if result is OK)
 	if result.error:
 		print(error_string(result.error) + ": " + result.message)
 		get_tree().quit()
