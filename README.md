@@ -1,5 +1,7 @@
 # Godot CLI Parser
 
+## What is it?
+
 Godot CLI parser is an addon for godot that facilitates the creation of an end user command line interface for your godot application. 
 Essentially, if you want to quickly and easily define discreet paramaterized commands that can be run directly off your application, Godot CLI Parser can help. 
 This is especially helpful for allowing users to run up their own dedicated game servers, but can be broadly applied across any number of other use cases.
