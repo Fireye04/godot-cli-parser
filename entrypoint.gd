@@ -8,10 +8,9 @@ class c2:
 
 func _ready() -> void:
 	var c = c2.new()
-	var result: Error = parser.run(c)
+	var result: Dictionary = parser.run(c)
 	c.queue_free()
-	if result:
-		print(error_string(result))
-		queue_free()
+	if result.error:
+		print(error_string(result.error) + ": " + result.message)
 		get_tree().quit()
 
