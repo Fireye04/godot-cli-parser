@@ -19,11 +19,11 @@ public partial class GDParser : SceneTree {
         Godot.Collections.Array arr = new Godot.Collections.Array();
         int i = 0;
         foreach (Token item in pr.Tokens) {
-            if (i == 0) {
+            if (i <= 1) {
                 i++;
                 continue;
             }
-            arr.Add((Godot.Variant)item.Value);
+            arr.Add(item.Value);
             i++;
         }
         target.Callv(pr.CommandResult.Command.Name + "Command", arr);
