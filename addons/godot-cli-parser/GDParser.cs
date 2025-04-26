@@ -10,20 +10,32 @@ public partial class GDParser : SceneTree {
                      .GetMethodList()) {
             string name = (string)command["name"];
             if (name.EndsWith("Command")) {
+                GD.Print();
                 name = name.Substring(0, name.LastIndexOf("Command"));
                 root.AddCommand(new Command(name));
             }
         }
-        getArgs(root);
+        ParseResult pr = getArgs(root);
+        Godot.Collections.Array arr = new Godot.Collections.Array();
+        int i = 0;
+        foreach (Token item in pr.Tokens) {
+            if (i == 0) {
+                i++;
+                continue;
+            }
+            arr.Add((Godot.Variant)item.Value);
+            i++;
+        }
+        target.Callv(pr.CommandResult.Command.Name + "Command", arr);
         return Error.Ok;
     }
 
-    public static void getArgs(Command root) {
+    public static ParseResult getArgs(Command root) {
         string[] args = OS.GetCmdlineUserArgs();
         if (args.Length == 0) {
-            return;
+            return null;
         }
         Parser p = new Parser(root);
-        GD.Print(p.Parse(args).ToString());
+        return p.Parse(args);
     }
 }
