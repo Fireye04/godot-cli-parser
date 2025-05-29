@@ -3,9 +3,9 @@ using System;
 
 public partial class Entrypoint : Node {
     public partial class Cmds : Node {
-        public void defaultCommand() { GD.Print("test"); }
+        public void defaultCmd() { GD.Print("test"); }
 
-        public void testCommand(String item, int val) {
+        public void test(String item, int val) {
             GD.Print(item);
             GD.Print(val + 1);
         }
