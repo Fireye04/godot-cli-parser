@@ -1,13 +1,17 @@
-using Godot;
-using System;
 using System.CommandLine;
 using System.CommandLine.Parsing;
+using Godot;
 
 public partial class GDParser : SceneTree {
+
+    /// <summary>
+    /// Main parser; Run on _ready in entrypoint, with target containing user
+    /// accessible commands.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns>Returns an error if one has occurred, else Error.Ok </returns>
     public static Error run(Node target) {
-        /*Main parser; Run on _ready in entrypoint, with target containing user
-         * accessible commands. Returns an error if one has occurred, else
-         * Error.Ok */
+
         Command root = AssembleCommand(target);
         ParseResult pr = getArgs(root);
 
@@ -45,9 +49,13 @@ public partial class GDParser : SceneTree {
         return Error.Ok;
     }
 
+    /// <summary>
+    /// takes all non-node methods (user defined methods when target inherets
+    /// from node) and assembles them into callable comands.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
     private static Command AssembleCommand(Node target) {
-        /*Takes All non-node methods (User defined methods when target inherets
-         * from Node) and assembles them into callable comands.*/
         // TODO: Allow users to inheret command classes from Node subclasses
         // (eg: node2D) without also including additional methods in the command
         // TODO: Can the assembled command be cached to avoid being rebuilt
@@ -66,8 +74,12 @@ public partial class GDParser : SceneTree {
         return root;
     }
 
+    /// <summary>
+    /// Parses current command arguments against assembled command
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
     private static ParseResult getArgs(Command root) {
-        /*Parses current command arguments against assembled command*/
         string[] args = OS.GetCmdlineUserArgs();
         Parser p = new Parser(root);
         return p.Parse(args);

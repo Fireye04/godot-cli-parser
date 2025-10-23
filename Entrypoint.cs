@@ -1,5 +1,5 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class Entrypoint : Node {
     public partial class Cmds : Node {
